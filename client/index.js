@@ -9,8 +9,11 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import SongList from "./components/SongList";
-
-//const cache = new InMemoryCache();
+import SongCreate from "./components/SongCreate";
+import SongDetail from "./components/SongDetail";
+import { HashRouter, Route, Switch } from "react-router-dom";
+import App from "./components/App";
+import "./style/style.css";
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -48,15 +51,22 @@ const client = new ApolloClient({
   }),
 });
 
-/*const client = new ApolloClient({
-  link,
-  cache,
-});*/
-
 const Root = () => {
   return (
     <ApolloProvider client={client}>
-      <SongList />
+      <HashRouter>
+        <Switch>
+          <Route exact path="/">
+            <App children={<SongList />}></App>
+          </Route>
+          <Route exact path="/songs/new">
+            <App children={<SongCreate />}></App>
+          </Route>
+          <Route path="/songs/:id">
+            <App children={<SongDetail />}></App>
+          </Route>
+        </Switch>
+      </HashRouter>
     </ApolloProvider>
   );
 };

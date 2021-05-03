@@ -8,7 +8,8 @@ const app = express();
 
 // Replace with your mongoLab URI
 const MONGO_URI =
-  "<ENTER YOUR MONGO URI>";
+  "mongodb+srv://admin:admin@cluster0.shsvh.mongodb.net/rgql?retryWrites=true&w=majority";
+
 if (!MONGO_URI) {
   throw new Error("You must provide a MongoLab URI");
 }
